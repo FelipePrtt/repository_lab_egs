@@ -1,3 +1,3 @@
-function atualizarArray(){
-    document.write('Botão clicado')
+function atualizarArray(event){
+
 }
