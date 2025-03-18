@@ -1,22 +1,23 @@
-function Pessoa(){
-    var nome;
-    var email;
-    var data_nascimento;
-    var tel_fixo;
-    var tel_celular;
-    var matricula;
+function Pessoa() {
+    this.nome = "";
+    this.email = "";
+    this.data_nascimento = "";
+    this.tel_fixo = "";
+    this.tel_celular = "";
+    this.matricula = "";
 }
-function Professor(){
-    Pessoa.call(this);
-    var area = document.getElementById('area');
-    var latters = document.getElementById('latters');
+function Professor() {
+    Pessoa.call(this); 
+    this.area = "";
+    this.latters = "";
 }
-function Aluno(){
-    Pessoa.call(this);
-    var curso = document.getElementById('curso');
+function Aluno() {
+    Pessoa.call(this); 
+    this.curso = "";
 }
 
-function ativadorCampos(){
+function ativadorCampos() {
+    console.log('ativadorCampos chamado');
     var checkBoxProfessor = document.getElementById('tipo_professor');
     var checkBoxAluno = document.getElementById('tipo_aluno');
     var campo_professor = document.getElementById('campo_professor');
@@ -25,45 +26,51 @@ function ativadorCampos(){
     campo_professor.style.display = 'none';
     campo_aluno.style.display = 'none';
 
-    if (checkBoxAluno.checked){
+    if (checkBoxAluno.checked) {
         campo_aluno.style.display = 'block';
-        checkBoxProfessor.checked = false;
-    }
-    if (checkBoxProfessor.checked){
+    } else if (checkBoxProfessor.checked) {
         campo_professor.style.display = 'block';
-        checkBoxAluno.checked = false;
     }
 }
 
-window.onload = function(){
-    var form = document.getElementById('formulario');
-    form.addEventListener('submit', criarCadastro())
+window.onload = function () {
+    var btnEnviar = document.getElementById('btnEnviar');
+    btnEnviar.addEventListener('click', criarCadastro);
 }
 
-function criarCadastro(){
+function criarCadastro(event) {
+
     var checkBoxProfessor = document.getElementById('tipo_professor');
     var checkBoxAluno = document.getElementById('tipo_aluno');
+    var resultado = document.getElementById('resultado');
 
-    if (checkBoxProfessod.checked){
-        var p = new Professor();
-        p.nome = document.getElementById('nome');
-        p.email = document.getElementById('email');
-        p.data_nascimento = document.getElementById('data_nascimento');
-        p.tel_fixo = document.getElementById('tel_fixo');
-        p.tel_celular = document.getElementById('tel_celular');
-        p.matricula = document.getElementById('matricula');
-        p.area = document.getElementById('area');
-        p.latters = document.getElementById('latters');
-        document.write(p.nome);
-    } else if (checkBoxAluno.checked){
-        var a = new Aluno();
-        a.nome = document.getElementById('nome');
-        a.email = document.getElementById('email');
-        a.data_nascimento = document.getElementById('data_nascimento');
-        a.tel_fixo = document.getElementById('tel_fixo');
-        a.tel_celular = document.getElementById('tel_celular');
-        a.matricula = document.getElementById('matricula');
-        a.curso = document.getElementById('curso');
-        document.write(a.nome);
+    resultado.innerHTML = ''; 
+
+    var nome = document.getElementById('nome').value;
+    var email = document.getElementById('email').value;
+    var data_nascimento = document.getElementById('data_nascimento').value;
+    var tel_fixo = document.getElementById('tel_fixo').value;
+    var tel_celular = document.getElementById('tel_celular').value;
+    var matricula = document.getElementById('matricula').value;
+
+    resultado.innerHTML += `<p><strong>Nome:</strong> ${nome}</p>`;
+    resultado.innerHTML += `<p><strong>Email:</strong> ${email}</p>`;
+    resultado.innerHTML += `<p><strong>Data de Nascimento:</strong> ${data_nascimento}</p>`;
+    resultado.innerHTML += `<p><strong>Telefone Fixo:</strong> ${tel_fixo}</p>`;
+    resultado.innerHTML += `<p><strong>Telefone Celular:</strong> ${tel_celular}</p>`;
+    resultado.innerHTML += `<p><strong>Matrícula:</strong> ${matricula}</p>`;
+
+    if (checkBoxProfessor.checked) {
+        var area = document.getElementById('area').value;
+        var latters = document.getElementById('latters').value;
+
+        resultado.innerHTML += `<p><strong>Área:</strong> ${area}</p>`;
+        resultado.innerHTML += `<p><strong>Latters:</strong> ${latters}</p>`;
+        resultado.innerHTML += `<p><strong>Tipo de Usuário:</strong> Professor</p>`;
+    } else if (checkBoxAluno.checked) {
+        var curso = document.getElementById('curso').value;
+
+        resultado.innerHTML += `<p><strong>Curso:</strong> ${curso}</p>`;
+        resultado.innerHTML += `<p><strong>Tipo de Usuário:</strong> Aluno</p>`;
     }
 }
