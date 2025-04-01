@@ -1,0 +1,43 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Letreiro Dinâmico Usando React</title>
+            <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+            <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+            <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        </head>
+        <body>
+            <div id="root"></div>
+            <script type="text/babel">
+                let intervalID; //A variável precisar se declara antes para não causar erros
+                function Letreiro({index}){
+                    const texto = "Venha estudar na FATEC";
+                    if (index < texto.length){
+                        let resp = texto.slice(0, index);
+                        return (
+                        <h1>{resp}</h1>
+                    )
+                    }else{
+                        console.log("Todas as letras já foram exibidas!");
+                        clearInterval(intervalID); //Deve ser passado o "nome da variavel" criada, não direto setInterval
+                        return (
+                            <h1>{texto}</h1>
+                        )
+                    }
+                }
+
+                const container = document.getElementById('root');
+                const root = ReactDOM.createRoot(container);
+
+                let i = 0;
+                function tick(){
+                    root.render(<Letreiro index = {i}/>);
+                    console.log(i);
+                    ++i;
+                }
+                intervalID = setInterval(tick, 100); //Devido ao método clearIntervalID é preciso usar a varíavel criada no inicio a atribuit o setInterval a ela
+                //Outro modo de fazer seria com um contados externo para controlar a exibição da string
+            </script>
+        </body>
+    </html>
